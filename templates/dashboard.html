@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Week {{ week|date:'W' }}</h1>
+
+<ul>
+    {% for task in object_list %}
+        <li>{{ task.date|date:"F j, Y" }}: {{ task.detail }}</li>
+    {% endfor %}
+</ul>
+
+<p>
+    {% if previous_week %}
+        Previous Week: {{ previous_week|date:"W" }} of year {{ previous_week|date:"Y" }}
+    {% endif %}
+    {% if previous_week and next_week %}--{% endif %}
+    {% if next_week %}
+        Next week: {{ next_week|date:"W" }} of year {{ next_week|date:"Y" }}
+    {% endif %}
+</p>
+{% endblock content %}

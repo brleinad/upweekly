@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Week {{ week }}</h1>
+<ul>
+    {% for task in object_list %}
+       {% if week == task.date|date:"W" %}
+        <li>{{ task.date|date:"W" }}: {{ task.detail }}</li>
+        {% endif %}
+    {% endfor %}
+</ul>
+{% endblock content %}
+
