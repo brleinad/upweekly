@@ -122,5 +122,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = 'dashboard'
+LOGIN_REDIRECT_URL = 'current_week'
 LOGOUT_REDIRECT_URL = 'start'

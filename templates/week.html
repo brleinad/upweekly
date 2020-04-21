@@ -4,7 +4,7 @@
 <h1>Week {{ week }}</h1>
 <ul>
    {% for task in object_list %}
-      {% if week == task.date|date:"W" %}
+      {% if week == task.date|date:"W" and user == task.user %}
          <li>{{ task.date }}: {{ task.detail }}</li>
       {% endif %}
    {% endfor %}
@@ -20,7 +20,7 @@
 <h2>Weeks</h2>
 <ul>
    {% for week, year in worked_yearweeks.items %}
-   <li><a href="{% url 'week' year=year week=week %}">Week {{ week }}</a></li>
+         <li><a href="{% url 'week' year=year week=week %}">Week {{ week }}</a></li>
     {% endfor %}
 </ul>
 

@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Week {{ week }}</h1>
-<ul>
-    {% for task in object_list %}
-       {% if week == task.date|date:"W" %}
-        <li>{{ task.date|date:"W" }}: {{ task.detail }}</li>
-        {% endif %}
-    {% endfor %}
-</ul>
+<h1>UpWeekly</h1>
+<p>You need an account to use Upweekly<p>
+<p>
+   <ul>
+      <li><a href="{% url 'login' %}">Login</a></li>
+      <li><a href="{% url 'signup' %}">Sign Up</a></li>
+   </ul>
+</p>
 {% endblock content %}
 

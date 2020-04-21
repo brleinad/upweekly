@@ -1,9 +1,15 @@
 from django.urls import path
 
-from .views import CurrentWeekView, WeekView, ReportView
+from .views import (
+        CurrentWeekView, 
+        WeekView, 
+        ReportView, 
+        StartView,
+        )
 
 urlpatterns = [
-        path('<int:year>/week/<int:week>/', WeekView.as_view(), name="week"),
         path('report/', ReportView.as_view(), name='report'),
-        path('', CurrentWeekView.as_view(), name='current_week'),
+        path('<int:year>/week/<int:week>/', WeekView.as_view(), name="week"),
+        path('current_week/', CurrentWeekView.as_view(), name='current_week'),
+        path('', StartView.as_view(), name='start'),
         ]
