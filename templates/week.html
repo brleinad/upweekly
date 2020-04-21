@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Week {{ week }}</h1>
+<ul>
+   {% for task in object_list %}
+      {% if week == task.date|date:"W" %}
+         <li>{{ task.date }}: {{ task.detail }}</li>
+      {% endif %}
+   {% endfor %}
+   <li>
+      <form method="post">
+         {% csrf_token %}
+         {{ form.as_p }}
+         <button type="submit">Add new task</button>
+      </form>
+   </li>
+</ul>
+
+<h2>Weeks</h2>
+<ul>
+   {% for week, year in worked_yearweeks.items %}
+   <li><a href="{% url 'week' year=year week=week %}">Week {{ week }}</a></li>
+    {% endfor %}
+</ul>
+
+<p>See report (summary of highlighted tasks)<p>
+<a href="{% url 'report' %}">Report</a>
+
+{% endblock content %}
+

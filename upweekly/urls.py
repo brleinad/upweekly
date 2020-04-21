@@ -1,9 +1,9 @@
 from django.urls import path
 
-from .views import DashboardView, StartView
+from .views import CurrentWeekView, WeekView, ReportView
 
 urlpatterns = [
-        #path(r'^(?P<year>\d{4})/week/(?P<week>\d+)$', DashboardView.as_view(), name='dashboard'),
-        path('<int:year>/week/<int:week>/', DashboardView.as_view(), name="dashboard"),
-        path('', StartView.as_view(), name='start'),
+        path('<int:year>/week/<int:week>/', WeekView.as_view(), name="week"),
+        path('report/', ReportView.as_view(), name='report'),
+        path('', CurrentWeekView.as_view(), name='current_week'),
         ]
