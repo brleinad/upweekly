@@ -5,7 +5,13 @@
 <ul>
    {% for task in object_list %}
       {% if week == task.date|date:"W" and user == task.user %}
-         <li>{{ task.date }}: {{ task.detail }}</li>
+         {% if task.highlight and user == task.user %}
+            <strong>
+         {% endif %}
+         <li>{{ task.date }}: {{ task.detail }} by {{ task.user.username }}</li>
+         {% if task.highlight and user == task.user %}
+            </strong>
+         {% endif %}
       {% endif %}
    {% endfor %}
    <li>

@@ -4,7 +4,7 @@
 <h1>Report</h1>
 <ul>
    {% for task in object_list %}
-   {% if task.highlight %}
+   {% if task.highlight and user == task.user %}
          <li>{{ task.date }}: {{ task.detail }}</li>
       {% endif %}
    {% endfor %}

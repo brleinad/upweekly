@@ -7,6 +7,7 @@
    <body>
 
       {% if user.is_authenticated %}
+      <p> Hey {{ user.username }}</p>
          <p><a href="{% url 'logout' %}">LogOut</a></p>
       {% endif %}
 
