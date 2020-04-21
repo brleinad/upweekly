@@ -3,8 +3,15 @@ from django.views.generic import (
         TemplateView, 
         WeekArchiveView,
         )
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.views.generic.edit import FormMixin, CreateView
+from django.contrib.auth.mixins import (
+        LoginRequiredMixin, 
+        UserPassesTestMixin,
+        )
+from django.views.generic.edit import (
+        FormMixin, 
+        CreateView, 
+        DeleteView,
+        )
 from django.views.generic.dates import WeekMixin
 from django.utils import timezone
 from django.urls import reverse_lazy
@@ -51,6 +58,15 @@ class WeekView(LoginRequiredMixin, UserPassesTestMixin, CreateView, WeekMixin, L
         context.update({'worked_yearweeks': worked_yearweeks})
         return context
 
+class DeleteTaskView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = CompletedTask
+    template_name = 'task_delete.html'
+    success_url = reverse_lazy('current_week')
+    login_url = 'login'
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.user == self.request.user
 
 class CurrentWeekView(WeekView):
     week = str(timezone.now().isocalendar()[1])

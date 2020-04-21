@@ -8,7 +8,10 @@
          {% if task.highlight and user == task.user %}
             <strong>
          {% endif %}
-         <li>{{ task.date }}: {{ task.detail }} by {{ task.user.username }}</li>
+         <li>
+            {{ task.date }}: {{ task.detail }} by {{ task.user.username }} 
+            <a href="{% url 'delete_task' task.id %}">Delete</a>
+         </li>
          {% if task.highlight and user == task.user %}
             </strong>
          {% endif %}
