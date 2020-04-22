@@ -1,14 +1,20 @@
 <!doctype html>
 <html>
    <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>UpWeekly</title>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+      <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
    </head>
 
    <body>
 
+
       {% if user.is_authenticated %}
+      <!--
       <p> Hey {{ user.username }}</p>
          <p><a href="{% url 'logout' %}">LogOut</a></p>
+      -->
       {% endif %}
 
 {% block content %}
