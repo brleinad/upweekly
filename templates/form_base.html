@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load upweekly_templatetags %}
+
+{% block title %}Sign Up{% endblock title %}
+{% block content %}
+<section class="hero is-fullheight has-background-primary">
+   <!--
+<div class="columns is-centered is-vcentered">
+<div class="column is-one-third is-centered has-background-light is-narrow">
+   -->
+<div class="tile is-ancestor">
+<div class="tile is-parent">
+<div class="tile is-child box is-4 has-background-primary">
+</div>
+<div class="tile is-child box is-4">
+   <div class="column ">
+      <h2 class="title has-text-dark has-text-centered">{% block form_title %}{% endblock form_title %}</h2>
+   <form method="post">
+      {% csrf_token %}
+
+      {% for error in form.non_field_errors %}
+         <p class="help is-danger">{{ error }}</p>
+      {% endfor %}
+      {% for field in form %}
+         <div class="field">
+            <label for="{{ field.id_for_label }}" class="label"> 
+               {{ field.label }}
+            </label>
+            <div class="control has-icons-left has-icons-right">
+               <input class="input is-success" type="{{ field.field.widget.input_type }}" name="{{ field.name }}" autofocus required id="{{ field.id_for_label }}">
+            <!-- {{ field|escape }} 
+               FORM: {{ form.form.required_css_class }} -->
+            <span class="icon is-small is-left">
+               <i class="fas fa-{% icons field.field.widget.input_type %}"></i>
+            </span>
+            <span class="icon is-small is-right">
+               <i class="fas fa-check"></i>
+            </span>
+         {% for error in field.errors %}
+            <p class="help is-danger">{{ error|escape }}</p>
+         {% endfor %}
+         {% if field.help_text %}
+            <p class="help is-success">{{ field.help_text|safe }}</p>
+         {% endif %}
+         </div>
+      {% endfor %}
+
+      <br>
+      <div class="field is-grouped">
+     <div class="control">
+       <button class="button is-link" type=submit>Submit</button>
+     </div>
+     <div class="control">
+        <a class="button is-link is-light" href="{% url 'start' %}">
+          Cancel
+        </a>
+     </div>
+   </div>
+   </form>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+
+{% endblock content %}
