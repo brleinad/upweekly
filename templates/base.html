@@ -8,15 +8,11 @@
    </head>
 
    <body>
-      <!--
-      <section class="hero is-primary is-fullheight-with-navbar">
-         <div class="hero-head">
-            -->
-            <nav class="navbar is-primary">
+            <nav class="navbar">
                <div class="container">
                   <div class="navbar-brand">
-                     <a href="{% url 'current_week' %}" class="navbar-item">
-                        <h1 class="title is-light">
+                     <a href="{% url 'start' %}" class="navbar-item">
+                        <h1 class="title has-text-primary">
                            UpWeekly 
                            <h1>
                      </a>
@@ -60,8 +56,11 @@
                </div>
             </nav>
 
+<section class="container is-fluid has-background-light">
+   <br>
          {% block content %}
          {% endblock content %}
+</section>
    </body>
 </html>
 

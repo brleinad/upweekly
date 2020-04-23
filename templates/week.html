@@ -1,40 +1,119 @@
 {% extends 'base.html' %}
+{% load upweekly_templatetags %}
 
 {% block content %}
-<h1>Week {{ week }}</h1>
-<ul>
-   {% for task in object_list %}
-      {% if week == task.date|date:"W" and user == task.user %}
-         {% if task.highlight and user == task.user %}
-            <strong>
-         {% endif %}
-         <li>
-            {{ task.date }}: {{ task.detail }} by {{ task.user.username }} 
-            <a href="{% url 'delete_task' task.id %}">Delete</a>
-         </li>
-         {% if task.highlight and user == task.user %}
-            </strong>
-         {% endif %}
-      {% endif %}
-   {% endfor %}
-   <li>
-      <form method="post">
-         {% csrf_token %}
-         {{ form.as_p }}
-         <button type="submit">Add new task</button>
-      </form>
-   </li>
-</ul>
+<div class="tile is-ancestor">
+   <div class="tile is-vertical is-10">
+      <div class="tile">
+         <div class="tile is-parent is-vertical is-3">
+            <article class="tile is-child notification is-primary">
+               <p class="subtitle">Weeks</p>
+               <ul>
+                  {% for week, year in worked_yearweeks.items %}
+                  <li><a href="{% url 'week' year=year week=week %}">Week {{ week }}</a></li>
+                  {% endfor %}
+               </ul>
+            </article>
+            <article class="tile is-child notification is-primary">
+               <p class="subtitle">Report</p>
+               <p>See report (summary of highlighted tasks)<p>
+               <a href="{% url 'report' %}">Report</a>
+            </article>
+         </div>
+         <div class="tile is-parent">
+            <article class="tile is-child notification is-primary">
+               <h2 class="title has-text-centered">Week {{ week }}</h2>
+                  <table class="table is-hoverable">
+                     <thead>
+                        <tr>
+                           <th>Date</th>
+                           <th>Task</th>
+                           <th><!--Action--></th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                     {% for task in object_list %}
+                        {% if week == task.date|date:"W" and user == task.user %}
+                        <tr>
+                           <td>{{ task.date }}</td>
+                           <td>
+                           {% if task.highlight and user == task.user %}
+                              <strong>{{ task.detail }}</strong>
+                           {% else %}
+                              {{ task.detail }}
+                           {% endif %}
+                           </td>
+                           <td>
+                              <span class="icon">
+                              <a class="is-danger is-light" href="{% url 'delete_task' task.id %}"><i class="fas fa-trash has-text-danger has-text-weight-light"></i></a>
+                              </span>
+                           </td>
+                        <tr>
+                        {% endif %}
+                     {% endfor %}
+                     <tr>
+                     </tr>
+                     </tbody>
+                  </table>
 
-<h2>Weeks</h2>
-<ul>
-   {% for week, year in worked_yearweeks.items %}
-         <li><a href="{% url 'week' year=year week=week %}">Week {{ week }}</a></li>
-    {% endfor %}
-</ul>
+               <form method="post">
+                  {% csrf_token %}
+                  <table class="table">
 
-<p>See report (summary of highlighted tasks)<p>
-<a href="{% url 'report' %}">Report</a>
+                     <tbody>
+                        <tr>
+                        {% for field in form %}
+                        <td>
+                              <div class="field">
+                                 <label for="{{ field.id_for_label }}" class="label"> 
+                                    {{ field.label }}
+                                 </label>
+                                 <div class="control has-icons-left has-icons-right">
+                                    <input class="{% input_class field.field.widget.input_type %} is-success" type="{{ field.field.widget.input_type }}" name="{{ field.name }}" autofocus id="{{ field.id_for_label }}" value="{{ field.field.widget.value }}">
+                                    <!--{{ field }}-->
+                                 </div>
+
+                              {% for error in field.errors %}
+                                 <p class="help is-danger">{{ error|escape }}</p>
+                              {% endfor %}
+                              {% if field.help_text %}
+                                 <p class="help">{{ field.help_text|safe }}</p>
+                              {% endif %}
+                              </div>
+                        </td>
+                        {% endfor %}
+                        </tr>
+                     </tbody>
+
+                  </table>
+                  <button type="submit">Add new task</button>
+               </form>
+            </article>
+         </div>
+      </div>
+   </div>
+   <div class="tile is-parent is-2">
+      <article class="tile is-child is-success">
+         <div class="panel is-primary">
+            <p class="panel-heading">Commits</p>
+            <div class="panel-block">
+                  One commit
+            </div>
+            <div class="panel-block">
+                  Another commit
+            </div>
+         </div>
+      </article>
+   </div>
+</div>
+
+
+
+
+
+
+
+
 
 {% endblock content %}
 

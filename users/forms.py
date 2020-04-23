@@ -9,12 +9,14 @@ class CustomUserCreationForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super(UserCreationForm, self).__init__(*args, **kwargs)
-        self.fields['password1'].help_text = '''
-Your password can’t be too similar to your other personal information.
-Your password must contain at least 8 characters.
-Your password can’t be a commonly used password.
-Your password can’t be entirely numeric.
-'''
+#        self.fields['password1'].help_text = '''
+#Your password can’t be too similar to your other personal information.
+#Your password must contain at least 8 characters.
+#Your password can’t be a commonly used password.
+#Your password can’t be entirely numeric.
+#'''
+        self.fields['password1'].help_text = 'Must contain at least 8 characters'
+        self.fields['password2'].help_text = ''
 
     class Meta(UserCreationForm):
         model = CustomUser
