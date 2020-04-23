@@ -6,14 +6,18 @@
 <form method="post">
    {% csrf_token %}
 
+   {% for error in form.non_field_errors %}
+      <p class="help is-danger">{{ error }}</p>
+   {% endfor %}
    {% for field in form %}
-   <div class="field">
-      {{ field.errors }}
-      <label for="{{ field.id_for_label }}" class="label"> 
-         {{ field.name }}
-      </label>
-      <div class="control has-icons-left has-icons-right">
-         <input class="input is-success" type="text" placeholder="Text input" name="{{ field.name }}">
+      <div class="field">
+         <label for="{{ field.id_for_label }}" class="label"> 
+            {{ field.label }}
+         </label>
+         <div class="control has-icons-left has-icons-right">
+            <input class="input is-success" type="{{ field.field.widget.input_type }}" name="{{ field.name }}" autofocus required id="{{ field.id_for_label }}">
+         <!-- {{ field|escape }} 
+            FORM: {{ form.form.required_css_class }} -->
          <span class="icon is-small is-left">
             <i class="fas fa-user"></i>
          </span>
@@ -21,42 +25,16 @@
             <i class="fas fa-check"></i>
          </span>
       <div>
+      {% for error in field.errors %}
+         <p class="help is-danger">{{ error|escape }}</p>
+      {% endfor %}
       {% if field.help_text %}
          <p class="help is-success">{{ field.help_text|safe }}</p>
       {% endif %}
    </div>
-   {% endfor %}
+{% endfor %}
    <button class="btn btn-success" type="submit">Sign Up</button>
 </form>
 
-   <!--
-   <div class="field">
-      <label for="{{ form.username.id_for_label }}" class="label">Username</label>
-      {{ form.username.errors }}
-      <div class="control has-icons-left has-icons-right">
-         <input class="input is-success" type="text" placeholder="Text input" value="bulma">
-         <span class="icon is-small is-left">
-            <i class="fas fa-user"></i>
-         </span>
-         <span class="icon is-small is-right">
-            <i class="fas fa-check"></i>
-         </span>
-      </div>
-      <p class="help is-success">This username is available</p>
-   </div>
 
-   <div class="field">
-      <label class="label">Email</label>
-      <div class="control has-icons-left has-icons-right">
-         <input class="input is-danger" type="email" placeholder="Email input" value="hello@">
-         <span class="icon is-small is-left">
-            <i class="fas fa-envelope"></i>
-         </span>
-         <span class="icon is-small is-right">
-            <i class="fas fa-exclamation-triangle"></i>
-         </span>
-      </div>
-      <p class="help is-danger">This email is invalid</p>
-   </div>
-   -->
 {% endblock content %}
