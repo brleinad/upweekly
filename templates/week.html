@@ -21,73 +21,94 @@
             </article>
          </div>
          <div class="tile is-parent">
-            <article class="tile is-child notification is-primary">
-               <h2 class="title has-text-centered">Week {{ week }}</h2>
-                  <table class="table is-hoverable">
-                     <thead>
-                        <tr>
-                           <th>Date</th>
-                           <th>Task</th>
-                           <th><!--Action--></th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                     {% for task in object_list %}
-                        {% if week == task.date|date:"W" and user == task.user %}
-                        <tr>
-                           <td>{{ task.date }}</td>
-                           <td>
-                           {% if task.highlight and user == task.user %}
-                              <strong>{{ task.detail }}</strong>
-                           {% else %}
-                              {{ task.detail }}
+            <article class="tile is-child notification">
+               <div class="panel is-primary">
+                  <h2 class="has-text-centered panel-heading">
+                     <span class="icon">
+                     <a class="is-danger is-light" href="{% url 'current_week' %}">
+                        <i class="fas fa-arrow-left has-text-light"></i>
+                     </a>
+                     </span>
+                     Week {{ week }}
+                     <span class="icon">
+                     <a class="is-danger is-light" href="{% url 'current_week' %}">
+                        <i class="fas fa-arrow-right has-text-light"></i>
+                     </a>
+                  </h2>
+                  </span>
+                     <table class="table is-hoverable">
+                        <thead>
+                           <tr>
+                              <th>Date</th>
+                              <th>Task</th>
+                              <th><!--Action--></th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                        {% for task in object_list %}
+                           {% if week == task.date|date:"W" and user == task.user %}
+                           <tr>
+                              <td>{{ task.date }}</td>
+                              <td>
+                              {% if task.highlight and user == task.user %}
+                                 <strong>{{ task.detail }}</strong>
+                              {% else %}
+                                 {{ task.detail }}
+                              {% endif %}
+                              </td>
+                              <td>
+                                 <span class="icon">
+                                 <a class="is-danger is-light" href="{% url 'delete_task' task.id %}">
+                                    <i class="fas fa-trash has-text-danger has-text-weight-light"></i>
+                                 </a>
+                                 </span>
+                              </td>
+                           <tr>
                            {% endif %}
-                           </td>
+                        {% endfor %}
+                        <tr>
+                        </tr>
+                        </tbody>
+                     </table>
+
+                  <form method="post">
+                     {% csrf_token %}
+                     <table class="table">
+                        <tbody>
+                           <tr>
+                           {% for field in form %}
                            <td>
-                              <span class="icon">
-                              <a class="is-danger is-light" href="{% url 'delete_task' task.id %}"><i class="fas fa-trash has-text-danger has-text-weight-light"></i></a>
-                              </span>
-                           </td>
-                        <tr>
-                        {% endif %}
-                     {% endfor %}
-                     <tr>
-                     </tr>
-                     </tbody>
-                  </table>
-
-               <form method="post">
-                  {% csrf_token %}
-                  <table class="table">
-
-                     <tbody>
-                        <tr>
-                        {% for field in form %}
-                        <td>
                               <div class="field">
                                  <label for="{{ field.id_for_label }}" class="label"> 
                                     {{ field.label }}
                                  </label>
                                  <div class="control has-icons-left has-icons-right">
-                                    <input class="{% input_class field.field.widget.input_type %} is-success" type="{{ field.field.widget.input_type }}" name="{{ field.name }}" autofocus id="{{ field.id_for_label }}" value="{{ field.field.widget.value }}">
+                                    <input class="{% input_class field.field.widget.input_type %} is-success" type="{{ field.field.widget.input_type }}" name="{{ field.name }}" autofocus id="{{ field.id_for_label }}" value="{{ field.value|date:"Y-m-d" }}"> <!--TODO: figure out how to give value properly'-->
                                     <!--{{ field }}-->
                                  </div>
 
-                              {% for error in field.errors %}
-                                 <p class="help is-danger">{{ error|escape }}</p>
-                              {% endfor %}
-                              {% if field.help_text %}
-                                 <p class="help">{{ field.help_text|safe }}</p>
-                              {% endif %}
+                                 {% for error in field.errors %}
+                                    <p class="help is-danger">{{ error|escape }}</p>
+                                 {% endfor %}
+                                 {% if field.help_text %}
+                                    <p class="help">{{ field.help_text|safe }}</p>
+                                 {% endif %}
                               </div>
-                        </td>
-                        {% endfor %}
-                        </tr>
-                     </tbody>
+                           </td>
+                           {% endfor %}
+                           <td>
+                              <div class="field">
+                              </div>
+                              <div class="field">
+                                 <button type="submit" class="button is-rounded is-primary is-light"><i class="fas fa-plus"></i></button>
+                              </div>
+                           </td>
+                           </tr>
+                        </tbody>
 
-                  </table>
-                  <button type="submit">Add new task</button>
-               </form>
+                     </table>
+                  </form>
+               </div>
             </article>
          </div>
       </div>
@@ -95,7 +116,7 @@
    <div class="tile is-parent is-2">
       <article class="tile is-child is-success">
          <div class="panel is-primary">
-            <p class="panel-heading">Commits</p>
+            <p class="panel-heading is-subtitle">Commits</p>
             <div class="panel-block">
                   One commit
             </div>
