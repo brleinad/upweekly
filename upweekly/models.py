@@ -8,7 +8,7 @@ from datetime import datetime
 class CompletedTask(models.Model):
     date = models.DateField(default=timezone.now())
     #TODO: change detail to something else
-    detail = models.CharField(max_length = 255)
+    detail = models.CharField(max_length = 255, default="")
     highlight =  models.BooleanField(default=False)
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE,)
     test = False
@@ -23,7 +23,7 @@ class CompletedTask(models.Model):
         year = date_object.to_python(date_value).isocalendar()[0]
         return reverse('week', args=[str(year), str(week)])
 
-    def get_all_yearweeks(request):
+    def get_all_weeks(request):
         """Returns a dictionary of all the weeks: years for which there is a task."""
         weeks2years = {}
         weeks = []

@@ -54,8 +54,8 @@ class WeekView(LoginRequiredMixin, UserPassesTestMixin, CreateView, WeekMixin, L
         week = str(week)
         context = super(WeekView, self).get_context_data(**kwargs)
         context.update({'week': week})
-        worked_yearweeks = CompletedTask.get_all_yearweeks(self.request)
-        context.update({'worked_yearweeks': worked_yearweeks})
+        worked_weeks = CompletedTask.get_all_weeks(self.request)
+        context.update({'worked_weeks': worked_weeks})
         return context
 
 class DeleteTaskView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):

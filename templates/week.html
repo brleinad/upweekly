@@ -7,10 +7,14 @@
       <div class="tile">
          <div class="tile is-parent is-vertical is-3">
             <article class="tile is-child notification is-primary">
-               <p class="subtitle">Weeks</p>
+               <p class="subtitle">Navigate</p>
+               <p class="">Pick a date</p>
               <input id="datetimepicker" type="text">
+              <br>
+              <br>
+               <p class="">Logged Weeks</p>
                <ul>
-                  {% for week, year in worked_yearweeks.items %}
+                  {% for week, year in worked_weeks.items %}
                   <li><a href="{% url 'week' year=year week=week %}">Week {{ week }}</a></li>
                   {% endfor %}
                </ul>
