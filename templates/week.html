@@ -21,8 +21,10 @@
             </article>
             <article class="tile is-child notification is-primary">
                <p class="subtitle">Report</p>
-               <p>See report (summary of highlighted tasks)<p>
-               <a href="{% url 'report' %}">Report</a>
+               <ul>
+                  <li><a href="{% url 'report' %}">Generate</a></li>
+                  <li><a href="{% url 'current_week' %}">Options</a></li>
+               </ul>
             </article>
          </div>
          <div class="tile is-parent">
@@ -123,10 +125,7 @@
          <div class="panel is-primary">
             <p class="panel-heading is-subtitle">Commits</p>
             <div class="panel-block">
-                  One commit
-            </div>
-            <div class="panel-block">
-                  Another commit
+               <a href="https://github.com/brleinad/upweekly/commit/33be962998ec978eb9212a5cc96ef948327a3e86">Added the calendar plugin</a>
             </div>
          </div>
       </article>

@@ -24,6 +24,9 @@ from .models import CompletedTask
 class StartView(TemplateView):
     template_name = 'start.html'
 
+class DemoView(TemplateView):
+    template_name = 'demo.html'
+
 
 class WeekView(LoginRequiredMixin, UserPassesTestMixin, CreateView, WeekMixin, ListView):
     template_name = 'week.html'
@@ -79,4 +82,3 @@ class ReportView(ListView):
     model = CompletedTask
     template_name = 'report.html'
     ordering = ['date']
-

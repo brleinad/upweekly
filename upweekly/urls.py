@@ -6,6 +6,7 @@ from .views import (
         ReportView, 
         StartView,
         DeleteTaskView,
+        DemoView,
         )
 
 urlpatterns = [
@@ -13,5 +14,6 @@ urlpatterns = [
         path('<int:year>/week/<int:week>/', WeekView.as_view(), name="week"),
         path('current_week/', CurrentWeekView.as_view(), name='current_week'),
         path('delete/<int:pk>', DeleteTaskView.as_view(), name='delete_task'),
+        path('demo/', DemoView.as_view(), name='demo'),
         path('', StartView.as_view(), name='start'),
         ]

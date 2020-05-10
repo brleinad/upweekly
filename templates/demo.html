@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 
@@ -7,18 +8,21 @@
   <div class="hero-body">
     <div class="container has-text-centered">
       <h1 class="title has-text-primary has-text-weight-bold is-1">
-        UpWeekly
+        UpWeekly Demo
       </h1>
       <br>
       <p class="subtitle is-3">
-        Do your weekly updates and automate your performance reviews.
       </p>
       <br>
       <p class="subtitle is-5">
-      <a href="{% url 'login' %}">Login</a> or <a href="{% url 'signup' %}">Sign Up</a>
-      to start using UpWeekly or try the <a href="{% url 'demo' %}">Demo</a> to see how it looks.
+        I am currently working hard to implement more core features and a Demo page.
+        In the meantime you can take a look at the screenshot below or <a href="{% url 'signup' %}">Sign Up</a> to try out the current state of UpWeekly.
+        If you are interested in this project and have any feedback please feel free to contact me at <a href="mailto:daniel.rodas.bautista@gmail.com">daniel.rodas.bautista@gmail.com</a>.
       </p>
     </div>
+  </div>
+  <div>
+    <img src="{% static 'images/demo_screenshot.png' %}">
   </div>
 
   <!-- Hero footer: will stick at the bottom -->
